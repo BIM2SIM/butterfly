@@ -149,7 +149,7 @@ class ResidualParser(object):
             return ()
 
         if not time_range:
-            return (v[quantity] for v in self.__residuals.itervalues())
+            return (v[quantity] for v in iter(self.__residuals.values()))
         else:
             available_time_range = self.time_range
             try:

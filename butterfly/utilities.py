@@ -167,7 +167,7 @@ def update_dict(d, u):
         d: original dictionary.
         u: new dictionary.
     """
-    for k, v in u.iteritems():
+    for k, v in iter(u.items()):
         if isinstance(v, collections.Mapping):
             r = update_dict(d.get(k, {}), v)
             d[k] = r

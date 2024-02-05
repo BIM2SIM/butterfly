@@ -92,7 +92,8 @@ class BlockMeshDict(FoamFile):
             .replace('));', ');').replace('((', ' (').replace(')(', ') (')
 
         _cls.values['boundary'] = {}
-        for key, values in CppDictParser(boundary_string).values.iteritems():
+        for key, values in iter(CppDictParser(
+                boundary_string).values.items()):
             if isinstance(values, dict) and 'type' in values and 'faces' in values:
                 values['faces'] = eval(str(values['faces']).replace(' ', ','))
 
@@ -346,7 +347,7 @@ class BlockMeshDict(FoamFile):
         if not self._bf_block_geometries:
             self._bf_block_geometries = tuple(
                 _get_bf_geometry(name, attr)
-                for name, attr in self.boundary.iteritems())
+                for name, attr in iter(self.boundary.items()))
 
         return self._bf_block_geometries
 
@@ -686,7 +687,7 @@ class BlockMeshDict(FoamFile):
         else:
             # update boundary condition for the geometry if the boundary is created
             # from geometry
-            for name, v in self.values['boundary'].iteritems():
+            for name, v in iter(self.values['boundary'].items()):
                 if ind in v['faces']:
                     v['type'] = 'empty'
 
@@ -733,7 +734,7 @@ class BlockMeshDict(FoamFile):
                if isinstance(attr['faces'][0], tuple) else
                _body % (name, attr['type'],
                         '\n\t' + str(attr['faces']).replace(",", ""))
-               for name, attr in self.boundary.iteritems())
+               for name, attr in iter(self.boundary.items()))
 
         return 'boundary\n(%s);\n' % '\n'.join(col)
 

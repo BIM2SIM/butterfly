@@ -256,7 +256,7 @@ class FoamFile(object):
         def remove_none(d):
             if isinstance(d, (dict, collections.OrderedDict)):
                 return collections.OrderedDict(
-                    (k, remove_none(v)) for k, v in d.iteritems()
+                    (k, remove_none(v)) for k, v in iter(d.items())
                     if v == {} or (v and remove_none(v)))
             elif isinstance(d, (list, tuple)):
                 return [remove_none(v) for v in d if v and remove_none(v)]
