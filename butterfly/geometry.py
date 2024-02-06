@@ -102,7 +102,7 @@ class _BFMesh(object):
         max_pt = list(self.vertices[0])
 
         for v in self.vertices[1:]:
-            for i in xrange(3):
+            for i in iter(range(3)):
                 if v[i] < min_pt[i]:
                     min_pt[i] = v[i]
                 elif v[i] > max_pt[i]:
@@ -313,7 +313,9 @@ def bf_geometry_from_stl_block(stl_block, convert_from_meters=1):
 def bf_geometry_from_stl_file(filepath, convert_from_meters=1):
     """Return a tuple of BFGeometry from an stl file."""
     with open(filepath, 'rb') as f:
-        line = ''.join(f.readlines())
+        lines = [line.decode('utf-8') for line in f.readlines()]
+        line = ''.join(lines)
+        #line = ''.join(f.readlines())
 
     blocks = ('\nsolid{}'.format(t) if not t.startswith('solid') else '\n{}'.format(t)
               for t in line.split('\nsolid'))
@@ -333,7 +335,7 @@ def calculate_min_max_from_bf_geometries(geometries, x_axis=None):
         max_pt = list(geometries[0].max)
 
         for geo in geometries[1:]:
-            for i in xrange(3):
+            for i in iter(range(3)):
                 if geo.min[i] < min_pt[i]:
                     min_pt[i] = geo.min[i]
 
@@ -352,7 +354,7 @@ def calculate_min_max_from_bf_geometries(geometries, x_axis=None):
         vertices = tuple(pts for geo in geometries
                          for pts in calculate_min_max(geo, angle))
         for v in vertices:
-            for i in xrange(3):
+            for i in iter(range(3)):
                 if v[i] < min_pt[i]:
                     min_pt[i] = v[i]
                 elif v[i] > max_pt[i]:
@@ -375,7 +377,7 @@ def calculate_min_max(geometry, angle):
     max_pt = [inf_n, inf_n, inf_n]
 
     for v in vertices:
-        for i in xrange(3):
+        for i in iter(range(3)):
             if v[i] < min_pt[i]:
                 min_pt[i] = v[i]
             elif v[i] > max_pt[i]:

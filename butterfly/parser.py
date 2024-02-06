@@ -158,7 +158,8 @@ class ResidualParser(object):
             except IndexError as e:
                 raise ValueError('Failed to read time_range:\n{}'.format(e))
 
-            return (self.__residuals[int(t)][quantity] for t in xrange(t0, t1))
+            return (self.__residuals[int(t)][quantity] for t in iter(range(
+                t0, t1)))
 
     @staticmethod
     def __get_time(line):
