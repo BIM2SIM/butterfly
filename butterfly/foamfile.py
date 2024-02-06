@@ -307,7 +307,7 @@ class FoamFile(object):
         if not overwrite and os.path.isfile(fp):
             return
 
-        with open(fp, "wb") as outf:
+        with open(fp, "w") as outf:
             outf.write(self.to_openfoam())
         return fp
 
