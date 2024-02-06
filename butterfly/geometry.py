@@ -312,10 +312,8 @@ def bf_geometry_from_stl_block(stl_block, convert_from_meters=1):
 
 def bf_geometry_from_stl_file(filepath, convert_from_meters=1):
     """Return a tuple of BFGeometry from an stl file."""
-    with open(filepath, 'rb') as f:
-        lines = [line.decode('utf-8') for line in f.readlines()]
-        line = ''.join(lines)
-        #line = ''.join(f.readlines())
+    with open(filepath, 'r') as f:
+        line = ''.join(f.readlines())
 
     blocks = ('\nsolid{}'.format(t) if not t.startswith('solid') else '\n{}'.format(t)
               for t in line.split('\nsolid'))
