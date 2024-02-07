@@ -2,7 +2,7 @@
 """BlockMeshDict class."""
 from .boundarycondition import BoundingBoxBoundaryCondition, EmptyBoundaryCondition
 from .foamfile import FoamFile
-import vectormath
+from . import vectormath
 from .grading import SimpleGrading, Grading, MultiGrading
 from .parser import CppDictParser
 from .geometry import BFGeometry
@@ -763,7 +763,7 @@ class BlockMeshDict(FoamFile):
             groups[p[2]].append((p[0], p[1]))
 
         z_values = sorted(groups.keys())
-        point_groups = groups.values()
+        point_groups = list(groups.values())
 
         assert len(z_values) == 2, \
             'Number of Z values must be 2 not {}: {}.'.format(len(z_values),
