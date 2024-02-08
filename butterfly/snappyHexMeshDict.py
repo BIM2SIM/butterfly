@@ -356,15 +356,19 @@ class SnappyHexMeshDict(FoamFile):
 
         self.__isFeatureEdgeRefinementImplicit = False
 
-    def add_stl_geometry(self, file_name):
+    def add_stl_geometry(self, file_name, regions=None):
         """Add stl geometry to snappyHexMeshDict.
 
         Args:
+            regions: optional dictionary of regions within the stl file.
             file_name: Stl file name. This file should be located under
                 /constant/triSurface.
         """
+        if regions is None:
+            regions = {}
         stl = {'{}.stl'.format(file_name): {'type': 'triSurfaceMesh',
-                                            'name': file_name}}
+                                            'name': file_name,
+                                            'regions': regions}}
 
         self.values['geometry'].update(stl)
 
