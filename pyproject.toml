@@ -14,12 +14,41 @@ classifiers = [
   "License :: OSI Approved :: BSD License",
   "Operating System :: OS Independent",
 ]
-dynamic = ["version", "dependencies"]
+dynamic = ["version"]
+# IMPORTANT: only true runtime deps here
+dependencies = [
+  "setuptools",
+  "twine",
+  "wheel"
+]
 
 [tool.setuptools]
-packages = { find = { where = ["."], exclude = ["tests*", "docs*"] } }
+packages = { find = { where = ["."], include = ["butterfly*"] } }
 
 # Option A: version is defined in your package (butterfly/__init__.py) as __version__
 [tool.setuptools.dynamic]
 version = { attr = "butterfly.__version__" }
-dependencies = { file = ["dev-requirements.txt"]}
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+  "coverage",
+]
+docs = [
+  "Sphinx",
+  "sphinx-bootstrap-theme",
+  # If you really need fulltoc for docs, keep it here, not in runtime:
+  "sphinxcontrib-fulltoc",
+  "sphinxcontrib-websupport"
+]
+dev = [
+  "coveralls",
+  # include test+docs if you like:
+  "pytest",
+  "pytest-cov",
+  "coverage",
+  "Sphinx",
+  "sphinx-bootstrap-theme",
+  "sphinxcontrib-fulltoc",
+]
