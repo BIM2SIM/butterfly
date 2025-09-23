@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lbt-butterfly"
+description = "Butterfly: tools to set up and run OpenFOAM cases (fork for BIM2SIM)"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+authors = [{ name = "BIM2SIM / Ladybug Tools" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+]
+dynamic = ["version", "dependencies"]
+
+[tool.setuptools]
+packages = { find = { where = ["."], exclude = ["tests*", "docs*"] } }
+
+# Option A: version is defined in your package (butterfly/__init__.py) as __version__
+[tool.setuptools.dynamic]
+version = { attr = "butterfly.__version__" }
+dependencies = { file = ["dev-requirements.txt"]}
