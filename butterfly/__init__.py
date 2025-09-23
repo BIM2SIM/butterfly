@@ -39,9 +39,13 @@ def set_config(_ofrunners):
 
 
 os.chdir(os.path.dirname(__file__))
-with open('config.yml') as inst:
-    _ofrunners = re.findall(r'\s- (.*)', inst.read(),re.MULTILINE )
+try:
+    with open('config.yml') as inst:
+        _ofrunners = re.findall(r'\s- (.*)', inst.read(),re.MULTILINE )
 
-config = set_config(_ofrunners)
-if config:
-    print('OpenFOAM installation: {}'.format(config['runner']))
+    config = set_config(_ofrunners)
+    if config:
+        print('OpenFOAM installation: {}'.format(config['runner']))
+except FileNotFoundError:
+    print(f'config.yml not found in path {os.path.dirname(__file__)}, '
+          f'proceeding without OpenFOAM installation setup.')
