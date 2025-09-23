@@ -4,8 +4,8 @@ pytest>=6.0.1
 pytest-cov>=2.10.1
 Sphinx>=3.2.1
 sphinx-bootstrap-theme
-sphinxcontrib-fulltoc>=1.2.0
-sphinxcontrib-websupport>=1.2.4;python_version>='3.6'
-twine==3.2.0
-wheel>=0.35.1
-setuptools>=50.3.0
+sphinxcontrib-fulltoc
+sphinxcontrib-websupport
+twine
+wheel
+setuptools
