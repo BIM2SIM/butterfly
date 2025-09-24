@@ -36,7 +36,7 @@ def read_ascii_string(data):
     This is just a wrapper around :py:func:`read_ascii_file` that first wraps
     the provided string in a :py:class:`StringIO.StringIO` object.
     """
-    from StringIO import StringIO
+    from io import StringIO
     return read_ascii_file(StringIO(data))
 
 
@@ -46,5 +46,5 @@ def read_binary_string(data):
     This is just a wrapper around :py:func:`read_binary_file` that first wraps
     the provided string in a :py:class:`StringIO.StringIO` object.
     """
-    from StringIO import StringIO
+    from io import StringIO
     return read_binary_file(StringIO(data))

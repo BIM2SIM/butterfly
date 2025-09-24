@@ -55,10 +55,10 @@ def parse(file):
 
     num_facets = r.read_uint32()
 
-    for i in xrange(0, num_facets):
+    for i in iter(range(0, num_facets)):
         normal = r.read_vector3d()
         vertices = tuple(
-            r.read_vector3d() for j in xrange(0, 3)
+            r.read_vector3d() for j in iter(range(0, 3))
         )
 
         attr_byte_count = r.read_uint16()
