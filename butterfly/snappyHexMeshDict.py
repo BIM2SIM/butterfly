@@ -226,7 +226,9 @@ class SnappyHexMeshDict(FoamFile):
     @features.setter
     def features(self, value=None):
         value = value or ()
-        self.values['castellatedMeshControls']['features'] = str(value)
+        if value is not str:
+            value = str(value)
+        self.values['castellatedMeshControls']['features'] = value
 
     @property
     def extractFeaturesRefineLevel(self):
@@ -265,8 +267,9 @@ class SnappyHexMeshDict(FoamFile):
         self.refinementRegion_names to get the names for refinment regions.
         """
         stl_f_names = self.values['geometry'].keys()
-        return tuple(f[:-4] for f in stl_f_names
-                     if not f[:-4] in self.refinementRegion_names)
+        return tuple(f.replace('.stl', '') for f in stl_f_names
+                     if not f in self.refinementRegion_names and
+                     f.endswith('.stl'))
 
     @property
     def refinementRegions(self):
@@ -356,15 +359,19 @@ class SnappyHexMeshDict(FoamFile):
 
         self.__isFeatureEdgeRefinementImplicit = False
 
-    def add_stl_geometry(self, file_name):
+    def add_stl_geometry(self, file_name, regions=None):
         """Add stl geometry to snappyHexMeshDict.
 
         Args:
+            regions: optional dictionary of regions within the stl file.
             file_name: Stl file name. This file should be located under
                 /constant/triSurface.
         """
+        if regions is None:
+            regions = {}
         stl = {'{}.stl'.format(file_name): {'type': 'triSurfaceMesh',
-                                            'name': file_name}}
+                                            'name': file_name,
+                                            'regions': regions}}
 
         self.values['geometry'].update(stl)
 

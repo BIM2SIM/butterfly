@@ -177,7 +177,7 @@ def parse(file):
         scanner.require_token(KeywordToken, "outer")
         scanner.require_token(KeywordToken, "loop")
         vertices = []
-        for i in xrange(0, 3):
+        for i in iter(range(0, 3)):
             scanner.require_token(KeywordToken, "vertex")
             vertex_x = scanner.require_token(NumberToken)
             vertex_y = scanner.require_token(NumberToken)

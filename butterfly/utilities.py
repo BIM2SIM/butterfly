@@ -167,7 +167,7 @@ def update_dict(d, u):
         d: original dictionary.
         u: new dictionary.
     """
-    for k, v in u.iteritems():
+    for k, v in iter(u.items()):
         if isinstance(v, collections.Mapping):
             r = update_dict(d.get(k, {}), v)
             d[k] = r
@@ -444,6 +444,6 @@ def load_of_boundary_file(path_to_file):
                 count = int(line.split()[-1][:-1])
                 nl = next(bf)
                 st = int(nl.split()[-1][:-1])
-                ind.append(xrange(st, st + count))
+                ind.append(iter(range(st, st + count)))
 
     return {i for rng in ind for i in rng}
