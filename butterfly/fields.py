@@ -48,7 +48,7 @@ class Field(object):
     def __repr__(self):
         """Representation."""
         return "\n".join(("{}        {};").format(key, value)
-                         for key, value in iter(self.value_dict.items()))
+                         for key, value in self.value_dict.iteritems())
 
 
 class ZeroGradient(Field):

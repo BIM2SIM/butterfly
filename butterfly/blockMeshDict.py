@@ -2,7 +2,7 @@
 """BlockMeshDict class."""
 from .boundarycondition import BoundingBoxBoundaryCondition, EmptyBoundaryCondition
 from .foamfile import FoamFile
-from . import vectormath
+import vectormath
 from .grading import SimpleGrading, Grading, MultiGrading
 from .parser import CppDictParser
 from .geometry import BFGeometry
@@ -92,8 +92,7 @@ class BlockMeshDict(FoamFile):
             .replace('));', ');').replace('((', ' (').replace(')(', ') (')
 
         _cls.values['boundary'] = {}
-        for key, values in iter(CppDictParser(
-                boundary_string).values.items()):
+        for key, values in CppDictParser(boundary_string).values.iteritems():
             if isinstance(values, dict) and 'type' in values and 'faces' in values:
                 values['faces'] = eval(str(values['faces']).replace(' ', ','))
 
@@ -347,7 +346,7 @@ class BlockMeshDict(FoamFile):
         if not self._bf_block_geometries:
             self._bf_block_geometries = tuple(
                 _get_bf_geometry(name, attr)
-                for name, attr in iter(self.boundary.items()))
+                for name, attr in self.boundary.iteritems())
 
         return self._bf_block_geometries
 
@@ -687,7 +686,7 @@ class BlockMeshDict(FoamFile):
         else:
             # update boundary condition for the geometry if the boundary is created
             # from geometry
-            for name, v in iter(self.values['boundary'].items()):
+            for name, v in self.values['boundary'].iteritems():
                 if ind in v['faces']:
                     v['type'] = 'empty'
 
@@ -734,7 +733,7 @@ class BlockMeshDict(FoamFile):
                if isinstance(attr['faces'][0], tuple) else
                _body % (name, attr['type'],
                         '\n\t' + str(attr['faces']).replace(",", ""))
-               for name, attr in iter(self.boundary.items()))
+               for name, attr in self.boundary.iteritems())
 
         return 'boundary\n(%s);\n' % '\n'.join(col)
 
@@ -763,7 +762,7 @@ class BlockMeshDict(FoamFile):
             groups[p[2]].append((p[0], p[1]))
 
         z_values = sorted(groups.keys())
-        point_groups = list(groups.values())
+        point_groups = groups.values()
 
         assert len(z_values) == 2, \
             'Number of Z values must be 2 not {}: {}.'.format(len(z_values),
