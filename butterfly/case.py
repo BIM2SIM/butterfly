@@ -164,7 +164,7 @@ class Case(object):
                     print('Imported {} from case.'.format(p))
                 except Exception as e:
                     print('Failed to import {}:\n\t{}'.format(p, e))
-        s_hmd = cls._get_foam_file_by_name('snappyHexMeshDict', ff)
+        s_hmd = cls.__get_foam_file_by_name('snappyHexMeshDict', ff)
 
         if s_hmd:
             s_hmd.project_name = name
@@ -892,12 +892,10 @@ class Case(object):
         return float(maximum), float(average)
 
     @staticmethod
-    def _get_foam_file_by_name(name, foamfiles):
+    def __get_foam_file_by_name(name, foamfiles):
         """Get a foamfile by name."""
         for f in foamfiles:
-            if not f:
-                continue
-            elif f.name == name:
+            if f.name == name:
                 return f
 
     @staticmethod

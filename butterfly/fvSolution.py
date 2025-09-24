@@ -128,7 +128,7 @@ class FvSolution(FoamFile):
         if not self.values['SIMPLE']['residualControl']:
             self.values['SIMPLE']['residualControl'] = {}
 
-        for key, value in iter(res_control.values.items()):
+        for key, value in res_control.values.iteritems():
             self.values['SIMPLE']['residualControl'][str(key)] = str(value)
 
     @property
@@ -149,7 +149,7 @@ class FvSolution(FoamFile):
         if not self.values['relaxationFactors']:
             self.values['relaxationFactors'] = {}
 
-        for key, value in iter(relax_fact.values.items()):
+        for key, value in relax_fact.values.iteritems():
             self.values['relaxationFactors'][str(key)] = str(value)
 
 
@@ -184,8 +184,7 @@ class ResidualControl(object):
     def __repr__(self):
         """Representation."""
         return 'residualControl\n{\n\t%s\n}' % (
-            '\n\t'.join(('{}\t{};'.format(k, v) for k,
-            v in iter(self.values.items()))))
+            '\n\t'.join(('{}\t{};'.format(k, v) for k, v in self.values.iteritems())))
 
 
 class RelaxationFactors(object):
@@ -216,5 +215,4 @@ class RelaxationFactors(object):
     def __repr__(self):
         """Representation."""
         return 'relaxationFactors\n{\n\t%s\n}' % (
-            '\n\t'.join(('{}\t{};'.format(k, v) for k,
-            v in iter(self.values.items()))))
+            '\n\t'.join(('{}\t{};'.format(k, v) for k, v in self.values.iteritems())))

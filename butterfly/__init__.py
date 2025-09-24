@@ -2,7 +2,6 @@ import re
 import os
 import warnings
 
-__version__ = "0.0.1"
 
 def set_config(_ofrunners):
     """set config for butterfly run manager."""
@@ -40,13 +39,9 @@ def set_config(_ofrunners):
 
 
 os.chdir(os.path.dirname(__file__))
-try:
-    with open('config.yml') as inst:
-        _ofrunners = re.findall(r'\s- (.*)', inst.read(),re.MULTILINE )
+with open('config.yml') as inst:
+    _ofrunners = re.findall(r'\s- (.*)', inst.read(),re.MULTILINE )
 
-    config = set_config(_ofrunners)
-    if config:
-        print('OpenFOAM installation: {}'.format(config['runner']))
-except FileNotFoundError:
-    print(f'config.yml not found in path {os.path.dirname(__file__)}, '
-          f'proceeding without OpenFOAM installation setup.')
+config = set_config(_ofrunners)
+if config:
+    print('OpenFOAM installation: {}'.format(config['runner']))
