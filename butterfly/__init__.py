@@ -2,6 +2,7 @@ import re
 import os
 import warnings
 
+__version__ = "0.0.1"
 
 def set_config(_ofrunners):
     """set config for butterfly run manager."""
