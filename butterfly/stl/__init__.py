@@ -1,7 +1,7 @@
 
-import ascii
-import binary
-from types import Solid, Facet, Vector3d
+from .ascii import parse
+from .binary import parse
+from .types import Solid, Facet, Vector3d
 
 
 def read_ascii_file(file):

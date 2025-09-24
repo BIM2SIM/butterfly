@@ -1,22 +1,22 @@
 # coding=utf-8
-"""p class."""
+"""G (radiation) class."""
 from .foamfile import FoamFileZeroFolder, foam_file_from_file
 from collections import OrderedDict
 
 
-class P(FoamFileZeroFolder):
-    """P (pressure) class."""
+class G_radiation(FoamFileZeroFolder):
+    """G (radiation) class."""
 
     # set default valus for this class
     __default_values = OrderedDict()
-    __default_values['dimensions'] = '[0 2 -2 0 0 0 0]'
-    __default_values['#include'] = None
+    __default_values['dimensions'] = '[1 0 -3 0 0 0 0]'
     __default_values['internalField'] = 'uniform 0'
-    __default_values['boundaryField'] = {}
+    __default_values['boundaryField'] = None
 
     def __init__(self, values=None):
         """Init class."""
-        FoamFileZeroFolder.__init__(self, name='p', cls='volScalarField',
+        FoamFileZeroFolder.__init__(self, name='G',
+                                    cls='volScalarField',
                                     location='0',
                                     default_values=self.__default_values,
                                     values=values)
@@ -29,3 +29,18 @@ class P(FoamFileZeroFolder):
             filepath: Full file path to dictionary.
         """
         return cls(values=foam_file_from_file(filepath, cls.__name__))
+
+    @property
+    def dimensions(self):
+        """Return dimensions."""
+        return self.values['dimensions']
+
+    @property
+    def internalField(self):
+        """Return internalField."""
+        return self.values['internalField']
+
+    @internalField.setter
+    def internalField(self, v):
+        """set internalField value."""
+        self.values['internalField'] = v
