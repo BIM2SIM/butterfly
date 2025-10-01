@@ -15,7 +15,7 @@ class FvSolution(FoamFile):
         'tolerance': '1e-7',
         'relTol': '0.1',
         'smoother': 'GaussSeidel',
-        'nPreSweepsre': '0',
+        'nPreSweeps': '0',
         'nPostSweeps': '2',
         'cacheAgglomeration': 'on',
         'agglomerator': 'faceAreaPair',

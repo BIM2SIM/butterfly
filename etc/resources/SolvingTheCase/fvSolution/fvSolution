@@ -23,7 +23,7 @@ solvers
         tolerance        1e-5; //for better accuracy during 3rd phase set to 1e-07
         relTol           0.01; //for better accuracy during 3rd phase set to 1e-07 0.001
         smoother         GaussSeidel;
-        nPreSweepsre     0;
+        nPreSweeps     0;
         nPostSweeps      2;
         cacheAgglomeration on;
         agglomerator     faceAreaPair;
